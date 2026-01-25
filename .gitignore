@@ -42,7 +42,7 @@ app.*.map.json
 
 # Android Studio will place build artifacts here
 /android/app/libs/
-/android/app/src/main/assets/
+# /android/app/src/main/assets/
 /android/app/src/main/jniLibs/
 /android/app/src/main/obj/
 /android/app/src/main/res/raw/
