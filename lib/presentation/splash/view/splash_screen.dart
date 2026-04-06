@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_structure/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/constansts/color_manger.dart';
-import '../../../core/resource/app_strings.dart';
 import '../../../core/route/route_name.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
@@ -53,13 +53,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     await Future.delayed(const Duration(seconds: 2));
 
     if (mounted) {
-      // Navigate to main screen
-      // You can add logic here to check for:
-      // - First time user -> Onboarding
-      // - Logged in user -> Bottom Nav
-      // - Not logged in -> Login
-
-      Navigator.pushReplacementNamed(context, RouteName.bottomNavRoute);
+      Navigator.pushReplacementNamed(context, RouteName.signInRoute);
     }
   }
 
@@ -71,6 +65,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -119,7 +114,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 
                     // App Name
                     Text(
-                      AppString.appName,
+                      l10n.appName,
                       style: TextStyle(
                         fontSize: 32.sp,
                         fontWeight: FontWeight.bold,
@@ -131,7 +126,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 
                     // Tagline
                     Text(
-                      AppString.splashSubtitle,
+                      l10n.splashSubtitle,
                       style: TextStyle(
                         fontSize: 16.sp,
                         color: ColorManager.whiteColor.withValues(alpha: 0.8),

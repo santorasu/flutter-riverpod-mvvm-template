@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_structure/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/constansts/color_manger.dart';
-import '../../../../core/resource/app_strings.dart';
 import '../../../../core/route/route_name.dart';
 
 class SignInScreen extends ConsumerStatefulWidget {
@@ -27,22 +27,24 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
   }
 
   String? _validateEmail(String? value) {
+    final l10n = AppLocalizations.of(context)!;
     if (value == null || value.isEmpty) {
-      return AppString.emailRequired;
+      return l10n.emailRequired;
     }
     final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
     if (!emailRegex.hasMatch(value)) {
-      return AppString.invalidEmail;
+      return l10n.invalidEmail;
     }
     return null;
   }
 
   String? _validatePassword(String? value) {
+    final l10n = AppLocalizations.of(context)!;
     if (value == null || value.isEmpty) {
-      return AppString.passwordRequired;
+      return l10n.passwordRequired;
     }
     if (value.length < 6) {
-      return AppString.passwordTooShort;
+      return l10n.passwordTooShort;
     }
     return null;
   }
@@ -61,9 +63,10 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
       }
     } catch (e) {
       if (mounted) {
+        final l10n = AppLocalizations.of(context)!;
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text('${AppString.error}: $e')));
+        ).showSnackBar(SnackBar(content: Text('${l10n.error}: $e')));
       }
     } finally {
       if (mounted) {
@@ -74,6 +77,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -87,7 +91,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
 
                 // Header
                 Text(
-                  AppString.login,
+                  l10n.login,
                   style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -95,7 +99,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  AppString.splashSubtitle,
+                  l10n.splashSubtitle,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: ColorManager.textSecondary,
                   ),
@@ -110,7 +114,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                   textInputAction: TextInputAction.next,
                   validator: _validateEmail,
                   decoration: InputDecoration(
-                    labelText: AppString.email,
+                    labelText: l10n.email,
                     prefixIcon: const Icon(Icons.email_outlined),
                   ),
                 ),
@@ -123,7 +127,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                   textInputAction: TextInputAction.done,
                   validator: _validatePassword,
                   decoration: InputDecoration(
-                    labelText: AppString.password,
+                    labelText: l10n.password,
                     prefixIcon: const Icon(Icons.lock_outline),
                     suffixIcon: IconButton(
                       icon: Icon(
@@ -150,7 +154,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                         RouteName.forgotPasswordRoute,
                       );
                     },
-                    child: Text(AppString.forgotPassword),
+                    child: Text(l10n.forgotPassword),
                   ),
                 ),
                 const SizedBox(height: 24),
@@ -170,7 +174,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                             ),
                           )
                         : Text(
-                            AppString.login,
+                            l10n.login,
                             style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
@@ -185,7 +189,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      AppString.dontHaveAccount,
+                      l10n.dontHaveAccount,
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     TextButton(
@@ -193,7 +197,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                         Navigator.pushNamed(context, RouteName.registerRoute);
                       },
                       child: Text(
-                        AppString.signUp,
+                        l10n.signUp,
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),

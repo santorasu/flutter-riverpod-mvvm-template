@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_structure/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/constansts/color_manger.dart';
-import '../../../core/resource/app_strings.dart';
 
 class SearchScreen extends ConsumerStatefulWidget {
   const SearchScreen({super.key});
@@ -23,6 +23,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   }
 
   void _performSearch(String query) {
+    final l10n = AppLocalizations.of(context)!;
     setState(() {
       _isSearching = true;
     });
@@ -38,7 +39,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
             // Demo search results
             _searchResults = List.generate(
               5,
-              (index) => '${AppString.searchResult} ${index + 1} for "$query"',
+              (index) => '${l10n.searchResult} ${index + 1} for "$query"',
             );
           }
         });
@@ -48,8 +49,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: const Text(AppString.search), centerTitle: true),
+      appBar: AppBar(title: Text(l10n.search), centerTitle: true),
       body: SafeArea(
         child: Column(
           children: [
@@ -60,7 +62,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                 controller: _searchController,
                 onChanged: _performSearch,
                 decoration: InputDecoration(
-                  hintText: AppString.searchHint,
+                  hintText: l10n.searchHint,
                   prefixIcon: const Icon(Icons.search),
                   suffixIcon: _searchController.text.isNotEmpty
                       ? IconButton(
@@ -90,6 +92,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   }
 
   Widget _buildEmptyState() {
+    final l10n = AppLocalizations.of(context)!;
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -101,14 +104,14 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
           ),
           const SizedBox(height: 16),
           Text(
-            AppString.searchEmptyTitle,
+            l10n.searchEmptyTitle,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               color: ColorManager.textSecondary,
             ),
           ),
           const SizedBox(height: 8),
           Text(
-            AppString.searchEmptySubtitle,
+            l10n.searchEmptySubtitle,
             style: Theme.of(context).textTheme.bodySmall,
             textAlign: TextAlign.center,
           ),
@@ -118,6 +121,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   }
 
   Widget _buildSearchResults() {
+    final l10n = AppLocalizations.of(context)!;
     if (_searchResults.isEmpty) {
       return Center(
         child: Column(
@@ -130,7 +134,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
             ),
             const SizedBox(height: 16),
             Text(
-              AppString.noResults,
+              l10n.noResults,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 color: ColorManager.textSecondary,
               ),
@@ -156,7 +160,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
             child: Icon(Icons.article_outlined, color: ColorManager.primary),
           ),
           title: Text(_searchResults[index]),
-          subtitle: Text(AppString.searchResultSubtitle),
+          subtitle: Text(l10n.searchResultSubtitle),
           trailing: const Icon(Icons.chevron_right),
           onTap: () {
             // Handle result tap

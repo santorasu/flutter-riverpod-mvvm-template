@@ -1,39 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_structure/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/constansts/color_manger.dart';
-import '../../../core/resource/app_strings.dart';
 
 class FavoritesScreen extends ConsumerWidget {
   const FavoritesScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     // Demo favorites list - replace with actual data from provider
     final List<Map<String, dynamic>> favorites = [
       {
         'id': 1,
-        'title': 'Favorite Item 1',
-        'subtitle': 'Added recently',
+        'title': '${l10n.favoriteItem} 1',
+        'subtitle': l10n.addedRecently,
         'icon': Icons.star,
       },
       {
         'id': 2,
-        'title': 'Favorite Item 2',
-        'subtitle': 'Added 2 days ago',
+        'title': '${l10n.favoriteItem} 2',
+        'subtitle': l10n.addedDaysAgo,
         'icon': Icons.bookmark,
       },
       {
         'id': 3,
-        'title': 'Favorite Item 3',
-        'subtitle': 'Added last week',
+        'title': '${l10n.favoriteItem} 3',
+        'subtitle': l10n.addedLastWeek,
         'icon': Icons.favorite,
       },
     ];
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(AppString.favorites),
+        title: Text(l10n.favorites),
         centerTitle: true,
         actions: [
           IconButton(
@@ -46,13 +47,13 @@ class FavoritesScreen extends ConsumerWidget {
       ),
       body: SafeArea(
         child: favorites.isEmpty
-            ? _buildEmptyState(context)
+            ? _buildEmptyState(context, l10n)
             : _buildFavoritesList(context, favorites),
       ),
     );
   }
 
-  Widget _buildEmptyState(BuildContext context) {
+  Widget _buildEmptyState(BuildContext context, AppLocalizations l10n) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -64,14 +65,14 @@ class FavoritesScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            AppString.noFavorites,
+            l10n.noFavorites,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               color: ColorManager.textSecondary,
             ),
           ),
           const SizedBox(height: 8),
           Text(
-            AppString.noFavoritesSubtitle,
+            l10n.noFavoritesSubtitle,
             style: Theme.of(context).textTheme.bodySmall,
             textAlign: TextAlign.center,
           ),
@@ -81,7 +82,7 @@ class FavoritesScreen extends ConsumerWidget {
               // Navigate to explore
             },
             icon: const Icon(Icons.explore),
-            label: const Text(AppString.startExploring),
+            label: Text(l10n.startExploring),
           ),
         ],
       ),

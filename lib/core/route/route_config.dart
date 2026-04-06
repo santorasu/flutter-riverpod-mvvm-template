@@ -7,6 +7,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const SplashScreen());
       case RouteName.bottomNavRoute:
         return MaterialPageRoute(builder: (_) => const BottomNavBarScreen());
+      case RouteName.signInRoute:
+        return MaterialPageRoute(builder: (_) => const SignInScreen());
       // case RouteName.loginRoute:
       //   return MaterialPageRoute(builder: (_) => const SignInScreen());
       // case RouteName.registerRoute:

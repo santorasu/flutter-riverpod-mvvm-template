@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_structure/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/constansts/color_manger.dart';
-import '../../../core/resource/app_strings.dart';
 import '../../home/view/home_screen.dart';
 import '../../search/view/search_screen.dart';
 import '../../favorites/view/favorites_screen.dart';
@@ -20,33 +20,33 @@ class BottomNavBarScreen extends ConsumerWidget {
     ProfileScreen(),
   ];
 
-  /// List of navigation items
-  static const List<BottomNavigationBarItem> _navItems = [
-    BottomNavigationBarItem(
-      icon: Icon(Icons.home_outlined),
-      activeIcon: Icon(Icons.home),
-      label: AppString.home,
-    ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.search_outlined),
-      activeIcon: Icon(Icons.search),
-      label: AppString.search,
-    ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.favorite_outline),
-      activeIcon: Icon(Icons.favorite),
-      label: AppString.favorites,
-    ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.person_outline),
-      activeIcon: Icon(Icons.person),
-      label: AppString.profile,
-    ),
-  ];
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentIndex = ref.watch(bottomNavIndexProvider);
+    final l10n = AppLocalizations.of(context)!;
+
+    final navItems = [
+      BottomNavigationBarItem(
+        icon: const Icon(Icons.home_outlined),
+        activeIcon: const Icon(Icons.home),
+        label: l10n.home,
+      ),
+      BottomNavigationBarItem(
+        icon: const Icon(Icons.search_outlined),
+        activeIcon: const Icon(Icons.search),
+        label: l10n.search,
+      ),
+      BottomNavigationBarItem(
+        icon: const Icon(Icons.favorite_outline),
+        activeIcon: const Icon(Icons.favorite),
+        label: l10n.favorites,
+      ),
+      BottomNavigationBarItem(
+        icon: const Icon(Icons.person_outline),
+        activeIcon: const Icon(Icons.person),
+        label: l10n.profile,
+      ),
+    ];
 
     return Scaffold(
       body: IndexedStack(index: currentIndex, children: _screens),
@@ -78,7 +78,7 @@ class BottomNavBarScreen extends ConsumerWidget {
             fontSize: 12,
           ),
           elevation: 0,
-          items: _navItems,
+          items: navItems,
         ),
       ),
     );

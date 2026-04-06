@@ -138,6 +138,17 @@ class SharedPreferenceData {
     return prefs.getString('last_check_time');
   }
 
+  // ===== LANGUAGE =====
+  static Future<void> setLanguage(String langCode) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('language', langCode);
+  }
+
+  static Future<String?> getLanguage() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('language');
+  }
+
   // ===== CLEAR ALL =====
   /// Clears all stored preferences. Useful for logout.
   static Future<void> clearAll() async {

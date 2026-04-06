@@ -1,20 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_structure/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/constansts/color_manger.dart';
-import '../../../core/resource/app_strings.dart';
 import '../../../core/route/route_name.dart';
+import '../../../main.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: const Text(AppString.profile),
+        title: Text(l10n.profile),
         centerTitle: true,
         actions: [
+          Consumer(
+            builder: (context, ref, child) {
+              final locale = ref.watch(localeProvider);
+              return TextButton(
+                onPressed: () {
+                  ref.read(localeProvider.notifier).toggleLocale();
+                },
+                child: Text(
+                  locale.languageCode == 'en' ? 'BN' : 'EN',
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+              );
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.edit_outlined),
             onPressed: () {
@@ -63,13 +79,13 @@ class ProfileScreen extends ConsumerWidget {
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      AppString.userName,
+                      l10n.userName,
                       style: Theme.of(context).textTheme.headlineLarge
                           ?.copyWith(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      AppString.userEmail,
+                      l10n.userEmail,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: ColorManager.textSecondary,
                       ),
@@ -84,31 +100,31 @@ class ProfileScreen extends ConsumerWidget {
               _buildMenuItem(
                 context,
                 icon: Icons.person_outline,
-                title: AppString.editProfile,
+                title: l10n.editProfile,
                 onTap: () {},
               ),
               _buildMenuItem(
                 context,
                 icon: Icons.notifications_outlined,
-                title: AppString.notifications,
+                title: l10n.notifications,
                 onTap: () {},
               ),
               _buildMenuItem(
                 context,
                 icon: Icons.security_outlined,
-                title: AppString.security,
+                title: l10n.security,
                 onTap: () {},
               ),
               _buildMenuItem(
                 context,
                 icon: Icons.help_outline,
-                title: AppString.helpSupport,
+                title: l10n.helpSupport,
                 onTap: () {},
               ),
               _buildMenuItem(
                 context,
                 icon: Icons.info_outline,
-                title: AppString.about,
+                title: l10n.about,
                 onTap: () {},
               ),
 
@@ -119,7 +135,7 @@ class ProfileScreen extends ConsumerWidget {
               _buildMenuItem(
                 context,
                 icon: Icons.logout,
-                title: AppString.logout,
+                title: l10n.logout,
                 isDestructive: true,
                 onTap: () {
                   _showLogoutDialog(context);
@@ -129,7 +145,7 @@ class ProfileScreen extends ConsumerWidget {
 
               // App Version
               Text(
-                AppString.appVersion,
+                l10n.appVersion,
                 style: Theme.of(context).textTheme.bodySmall,
               ),
               const SizedBox(height: 16),
@@ -180,15 +196,16 @@ class ProfileScreen extends ConsumerWidget {
   }
 
   void _showLogoutDialog(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text(AppString.logout),
-        content: const Text(AppString.logoutConfirmation),
+        title: Text(l10n.logout),
+        content: Text(l10n.logoutConfirmation),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text(AppString.cancel),
+            child: Text(l10n.cancel),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
@@ -203,7 +220,7 @@ class ProfileScreen extends ConsumerWidget {
                 (route) => false,
               );
             },
-            child: const Text(AppString.logout),
+            child: Text(l10n.logout),
           ),
         ],
       ),

@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_structure/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/constansts/color_manger.dart';
-import '../../../core/resource/app_strings.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: const Text(AppString.home), centerTitle: true),
+      appBar: AppBar(title: Text(l10n.home), centerTitle: true),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
@@ -40,7 +41,7 @@ class HomeScreen extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      AppString.welcomeMessage,
+                      l10n.welcomeMessage,
                       style: Theme.of(context).textTheme.headlineLarge
                           ?.copyWith(
                             color: ColorManager.whiteColor,
@@ -49,7 +50,7 @@ class HomeScreen extends ConsumerWidget {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      AppString.welcomeSubtitle,
+                      l10n.welcomeSubtitle,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: ColorManager.whiteColor.withValues(alpha: 0.9),
                       ),
@@ -61,7 +62,7 @@ class HomeScreen extends ConsumerWidget {
 
               // Quick Actions Section
               Text(
-                AppString.quickActions,
+                l10n.quickActions,
                 style: Theme.of(
                   context,
                 ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
@@ -73,7 +74,7 @@ class HomeScreen extends ConsumerWidget {
                     child: _buildActionCard(
                       context,
                       icon: Icons.explore,
-                      title: AppString.explore,
+                      title: l10n.explore,
                       color: ColorManager.infoColor,
                     ),
                   ),
@@ -82,7 +83,7 @@ class HomeScreen extends ConsumerWidget {
                     child: _buildActionCard(
                       context,
                       icon: Icons.notifications_outlined,
-                      title: AppString.notifications,
+                      title: l10n.notifications,
                       color: ColorManager.warningColor,
                     ),
                   ),
@@ -95,7 +96,7 @@ class HomeScreen extends ConsumerWidget {
                     child: _buildActionCard(
                       context,
                       icon: Icons.analytics_outlined,
-                      title: AppString.analytics,
+                      title: l10n.analytics,
                       color: ColorManager.successColor,
                     ),
                   ),
@@ -104,7 +105,7 @@ class HomeScreen extends ConsumerWidget {
                     child: _buildActionCard(
                       context,
                       icon: Icons.settings_outlined,
-                      title: AppString.settings,
+                      title: l10n.settings,
                       color: ColorManager.errorColor,
                     ),
                   ),
@@ -114,7 +115,7 @@ class HomeScreen extends ConsumerWidget {
 
               // Recent Activity Section
               Text(
-                AppString.recentActivity,
+                l10n.recentActivity,
                 style: Theme.of(
                   context,
                 ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
@@ -123,7 +124,7 @@ class HomeScreen extends ConsumerWidget {
               // Placeholder list items
               ...List.generate(
                 3,
-                (index) => _buildActivityItem(context, index),
+                (index) => _buildActivityItem(context, l10n, index),
               ),
             ],
           ),
@@ -161,7 +162,7 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildActivityItem(BuildContext context, int index) {
+  Widget _buildActivityItem(BuildContext context, AppLocalizations l10n, int index) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
@@ -186,14 +187,14 @@ class HomeScreen extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '${AppString.activityItem} ${index + 1}',
+                  '${l10n.activityItem} ${index + 1}',
                   style: Theme.of(
                     context,
                   ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  AppString.activityDescription,
+                  l10n.activityDescription,
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
               ],
